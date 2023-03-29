@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ZeroHungerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ZeroHungerModelStoreContainer">
+    <EntitySet Name="Employees" EntityType="ZeroHungerModel.Store.Employees" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Histories" EntityType="ZeroHungerModel.Store.Histories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orders" EntityType="ZeroHungerModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Requests" EntityType="ZeroHungerModel.Store.Requests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Restaurants" EntityType="ZeroHungerModel.Store.Restaurants" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Collections_Employees" Association="ZeroHungerModel.Store.FK_Collections_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Employees" Association="ZeroHungerModel.Store.FK_Orders_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Collections_Orders" Association="ZeroHungerModel.Store.FK_Collections_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_History_Restaurants" Association="ZeroHungerModel.Store.FK_History_Restaurants">
+      <End Role="Restaurants" EntitySet="Restaurants" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Requests" Association="ZeroHungerModel.Store.FK_Orders_Requests">
+      <End Role="Requests" EntitySet="Requests" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Requests_Restaurants" Association="ZeroHungerModel.Store.FK_Requests_Restaurants">
+      <End Role="Restaurants" EntitySet="Restaurants" />
+      <End Role="Requests" EntitySet="Requests" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="Sex" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Histories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Order_Id" Type="int" Nullable="false" />
+    <Property Name="Employee_Id" Type="int" Nullable="false" />
+    <Property Name="Restaurant_Id" Type="int" Nullable="false" />
+    <Property Name="Collection_Time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Request_Id" Type="int" Nullable="false" />
+    <Property Name="Employee_id" Type="int" Nullable="false" />
+    <Property Name="Order_Date" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Requests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Restaurants_Id" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" Nullable="false" />
+    <Property Name="Expiry_Date" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Restaurants">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Collections_Employees">
+    <End Role="Employees" Type="ZeroHungerModel.Store.Employees" Multiplicity="1" />
+    <End Role="History" Type="ZeroHungerModel.Store.Histories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="Employee_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Employees">
+    <End Role="Employees" Type="ZeroHungerModel.Store.Employees" Multiplicity="1" />
+    <End Role="Orders" Type="ZeroHungerModel.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Collections_Orders">
+    <End Role="Orders" Type="ZeroHungerModel.Store.Orders" Multiplicity="1" />
+    <End Role="History" Type="ZeroHungerModel.Store.Histories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_History_Restaurants">
+    <End Role="Restaurants" Type="ZeroHungerModel.Store.Restaurants" Multiplicity="1" />
+    <End Role="History" Type="ZeroHungerModel.Store.Histories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurants">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="Restaurant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Requests">
+    <End Role="Requests" Type="ZeroHungerModel.Store.Requests" Multiplicity="1" />
+    <End Role="Orders" Type="ZeroHungerModel.Store.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requests">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Request_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Requests_Restaurants">
+    <End Role="Restaurants" Type="ZeroHungerModel.Store.Restaurants" Multiplicity="1" />
+    <End Role="Requests" Type="ZeroHungerModel.Store.Requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurants">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Requests">
+        <PropertyRef Name="Restaurants_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

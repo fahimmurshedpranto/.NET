@@ -1,0 +1,99 @@
+﻿/* add padding and margin to the buttons */
+.btn {
+    padding: 10px 20px;
+    margin: 5px;
+}
+
+    /* add background color on hover */
+    .btn:hover {
+        background-color: #555;
+        color: white;
+        border-color: #555;
+    }
+
+/* add fancy animation on hover */
+.btn-fancy {
+    position: relative;
+    transition: all 0.3s ease-out;
+}
+
+    .btn-fancy:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background-color: #555;
+        opacity: 0.5;
+        transition: all 0.3s ease-out;
+    }
+
+    .btn-fancy:hover:before {
+        width: 100%;
+    }
+.btn-dark:hover {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+    transition: box-shadow 1s ease-in-out;
+}
+
+.banner {
+    background-image:src(../pic1.jpeg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .banner h1 {
+        font-size: 3em;
+        text-align: center;
+        margin: 0;
+    }
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin: auto;
+}
+
+    .slideshow-container img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+.slideshow-caption {
+    position: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+@keyframes bg-color-animation {
+    0% {
+        background-color:cadetblue;
+    }
+
+    50% {
+        background-color: darksalmon;
+    }
+
+    100% {
+        background-color: white;
+    }
+}
+
+/* Apply the animation to an element */
+body {
+    animation-name: bg-color-animation;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}

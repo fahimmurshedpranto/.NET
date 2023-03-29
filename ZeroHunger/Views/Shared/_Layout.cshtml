@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  s
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>@ViewBag.Title ZeroHunger</title>
+    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <script srec="~/Scripts/particale.js"></script>
+    <script srec="~/Scripts/app.js"></script>
+   <script>
+    var count_particles, stats, update;
+    stats = new Stats;
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
+    count_particles = document.querySelector('.js-count-particles');
+    update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+    count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+    </script>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <h1>
+                <a href="/" style="color: inherit">
+
+                    Zero Hunger
+                </a>
+            </h1>
+
+            <div class="btn-group">
+
+                <a href="/Home" class="btn btn-dark">Home</a>
+                <a href="/Home/AddEmployees" class="btn btn-dark">Add New Employees</a>
+                <a href="/Home/Employees" class="btn btn-dark">Manage Employees</a>
+                <a href="/Home/AddRestaurants" class="btn btn-dark">Add New Restaurants</a>
+                <a href="/Restaurants" class="btn btn-dark">View Restaurants & Manage Requests</a>
+                <a href="/Restaurants/Requests" class="btn btn-dark">Assign Employees</a>
+                <a href="/Orders" class="btn btn-dark">Collect & Distribute</a>
+                <a href="/Orders/History" class="btn btn-dark">History</a>
+            </div>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCIZVHyGkpn-WiTT_Wkj3m3RQ1EV3u0yyrXA&usqp=CAU"></div>
+                    <div class="swiper-slide"><img src=https://encrypted-tbn0.gstatic.com/images?q =tbn:ANd9GcSVPSBRExpMbgoG-cNzkUVoe63iEMgLtw6yEw&usqp =CAU"></div>
+                    <div class="swiper-slide"><img src="https://example.com/slide3.jpg"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
+            <script>
+                var swiper = new Swiper('.swiper-container', {
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                    },
+                });
+            </script>
+
+            <div class="container body-content">
+                <br><br>
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now </p>
+                </footer>
+            </div>
+            <script type="text/javascript" src="slideshow.js"></script>
+            <script src="~/Content/bootstrap.bundle.min.js"></script>
+            @Scripts.Render("~/bundles/jquery")
+            @*@Scripts.Render("~/bundles/bootstrap")*@
+            @RenderSection("scripts", required: false)
+</body>
+</html>
